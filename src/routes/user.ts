@@ -6,8 +6,11 @@ import {
   createUserController,
   updateUserController,
 } from "@/controllers/user";
+import { checkSession } from "@/middlewares/session";
 
 const router = Router();
+
+router.use(checkSession);
 
 router.get("/", getUsersController);
 router.get("/:id", getUserController);

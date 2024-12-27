@@ -1,4 +1,4 @@
-import { PrismaClient, User } from "@prisma/client";
+import { User } from "@prisma/client";
 import prisma from "@@prisma/client";
 
 const getUser = async (id: string) => {
