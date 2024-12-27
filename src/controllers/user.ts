@@ -1,11 +1,11 @@
-import { handleHttp } from "@/utils/error-handler";
 import { Request, Response } from "express";
-import * as Services from "@/services/user";
+import { getUser, getUsers, createUser, updateUser, deleteUser } from "@/services/user";
+import { handleHttp } from "@/utils/error-handler";
 
-const getUser = async ({ params }: Request, res: Response) => {
+const getUserController = async ({ params }: Request, res: Response) => {
   try {
     const { id } = params;
-    const user = await Services.getUser(id);
+    const user = await getUser(id);
 
     res.send(user);
   } catch (e) {
@@ -13,9 +13,9 @@ const getUser = async ({ params }: Request, res: Response) => {
   }
 };
 
-const getUsers = async (req: Request, res: Response) => {
+const getUsersController = async (req: Request, res: Response) => {
   try {
-    const users = await Services.getUsers();
+    const users = await getUsers();
 
     res.send(users);
   } catch (e) {
@@ -23,9 +23,9 @@ const getUsers = async (req: Request, res: Response) => {
   }
 };
 
-const createUser = ({ body }: Request, res: Response) => {
+const createUserController = ({ body }: Request, res: Response) => {
   try {
-    const user = Services.createUser(body);
+    const user = createUser(body);
 
     res.send(user);
   } catch (e) {
@@ -33,10 +33,10 @@ const createUser = ({ body }: Request, res: Response) => {
   }
 };
 
-const updateUser = ({ body, params }: Request, res: Response) => {
+const updateUserController = ({ body, params }: Request, res: Response) => {
   try {
     const { id } = params;
-    const user = Services.updateUser(id, body);
+    const user = updateUser(id, body);
 
     res.send(user);
   } catch (e) {
@@ -44,10 +44,10 @@ const updateUser = ({ body, params }: Request, res: Response) => {
   }
 };
 
-const deleteUser = (req: Request, res: Response) => {
+const deleteUserController = (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    Services.deleteUser(id);
+    deleteUser(id);
 
     res.send({ message: "User deleted" });
   } catch (e) {
@@ -55,4 +55,10 @@ const deleteUser = (req: Request, res: Response) => {
   }
 };
 
-export { getUser, getUsers, createUser, updateUser, deleteUser };
+export {
+  getUserController,
+  getUsersController,
+  createUserController,
+  updateUserController,
+  deleteUserController,
+};
